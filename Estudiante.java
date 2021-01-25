@@ -17,8 +17,27 @@ public class Estudiante {
      *  
      */
     public Estudiante(String lineaDatos) {
-         
-
+        String[] datos = new String[4];
+        datos = lineaDatos.split(SEPARADOR); 
+        for (int i = 0; i < datos.length; i++){
+            datos[i].trim();
+        }
+        apellidos = datos[1].toUpperCase();
+        faltasNoJustificadas = Integer.parseInt(datos[2]);
+        faltasJustificadas = Integer.parseInt(datos[3]);
+        String[] nombreS = datos[0].split(" +");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < nombreS.length; i++){
+            if (i != nombreS.length - 1){
+                sb.append(nombreS[i].toUpperCase().charAt(0));
+                sb.append(".");
+            }
+            else{
+                sb.append(nombreS[i].toUpperCase().charAt(0));
+                sb.append(nombreS[i].substring(1));
+            }
+        }
+        nombre = sb.toString();
     }
 
 
@@ -93,7 +112,7 @@ public class Estudiante {
      * (ver enunciado)
      */
     public String toString() {
-        
+        StringBuilder sb = new StringBuilder();
         return null;
 
     }
