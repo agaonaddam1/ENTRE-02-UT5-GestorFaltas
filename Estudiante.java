@@ -33,13 +33,12 @@ public class Estudiante {
                 sb.append(".");
             }
             else{
-                sb.append(nombreS[i].toUpperCase().charAt(0));
+                sb.append(" " + nombreS[i].toUpperCase().charAt(0));
                 sb.append(nombreS[i].substring(1));
             }
         }
         nombre = sb.toString();
     }
-
 
     /**
      * accesor para el nombre completo
@@ -112,13 +111,23 @@ public class Estudiante {
      * (ver enunciado)
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        return null;
+        StringBuilder sb = new StringBuilder(String.format("%-25s %-s", "Apellidos y Nombre:"
+                , this.apellidos + "," + this.nombre));
+        sb.append(String.format("%-25s %-d", "Faltas No Justificadas", faltasNoJustificadas));
+        sb.append(String.format("%-25s %-d", "Faltas Justificadas", faltasJustificadas));
+        sb.append(String.format("%-25s %-s", "Apercibimientos"));
+        return sb.toString();
 
     }
 
+    /**
+     * 
+     */
+    public void metodo() {
 
-     public static void main(String[] args) {
+    }
+
+    public static void main(String[] args) {
         Estudiante e1 = new Estudiante("  ander ibai  ,  Ruiz Sena , 12, 23");
         System.out.println(e1);
         System.out.println();
@@ -132,7 +141,6 @@ public class Estudiante {
         Estudiante e4 = new Estudiante("julen, Duque Puyal, 5, 55");
         System.out.println(e4);
         System.out.println();
-        
 
         System.out.println("---------------------------------");
         e1.justificar(3);
