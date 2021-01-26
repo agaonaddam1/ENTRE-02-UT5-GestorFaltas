@@ -10,10 +10,11 @@ import java.util.Scanner;
  *
  */
 public class GestorFaltas {
-     
-
+    private Estudiante[] estudiantes;
+    private int total;
     public GestorFaltas(int n) {
-         
+        estudiantes = new Estudiante[n];
+        total = 0;
     }
 
     /**
@@ -21,7 +22,7 @@ public class GestorFaltas {
      * false en otro caso
      */
     public boolean cursoCompleto() {
-        return false;
+        return total == estudiantes.length;
     }
 
     /**
@@ -37,10 +38,23 @@ public class GestorFaltas {
      *    
      */
     public void addEstudiante(Estudiante nuevo) {
-        
-
+        if (cursoCompleto()){
+            System.out.println("El curso esta completo");
+        }
+        else if(buscarEstudiante(nuevo.getApellidos()) >= 0){
+            System.out.println("Ya está registrado el estudiante " + nuevo.getApellidos()
+            + "," + nuevo.getNombre() + " en el curso");
+        }
+        else{
+            int i = total - 1;
+            while (i >= 0 && estudiantes[i].getApellidos().compareToIgnoreCase(nuevo.getApellidos()) > 0){
+                estudiantes[i + 1] = estudiantes[i];
+                i--;
+            }
+            estudiantes[i + 1] = nuevo;
+            total++;
+        } 
     }
-
 
     /**
      * buscar un estudiante por sus apellidos
@@ -51,8 +65,22 @@ public class GestorFaltas {
      *  
      */
     public int buscarEstudiante(String apellidos) {
-         
-        return 0;
+        int izquierda = 0;
+        int derecha = total - 1;
+        while (izquierda <= derecha) {
+            int mitad = (izquierda + derecha) / 2;
+            if (estudiantes[mitad].getApellidos().equalsIgnoreCase(apellidos)) {
+                return mitad;
+            }
+            else if (estudiantes[mitad].getApellidos().compareToIgnoreCase(apellidos) > 0) {
+                derecha = mitad - 1;
+            }
+            else {
+                izquierda = mitad + 1;
+            }
+        }
+
+        return -1;
     }
 
     /**
@@ -61,8 +89,12 @@ public class GestorFaltas {
      *  
      */
     public String toString() {
-        
-        return null;
+        StringBuilder sb = new StringBuilder("Relacion de Estudiantes (" + total + ") \n\n");
+        for (int i = 0; i < total; i++){
+            sb.append(estudiantes[i].toString() + "\n\n");
+            sb.append("--------------------\n");
+        }
+        return sb.toString();
 
     }
 
@@ -75,7 +107,6 @@ public class GestorFaltas {
      *  justificar también)
      */
     public void justificarFaltas(String apellidos, int faltas) {
-         
 
     }
 
@@ -85,7 +116,6 @@ public class GestorFaltas {
      * Método de selección directa
      */
     public void ordenar() {
-        
 
     }
 
@@ -94,7 +124,6 @@ public class GestorFaltas {
      * aquellos estudiantes con 30 o más faltas injustificadas
      */
     public void anularMatricula() {
-         
 
     }
 

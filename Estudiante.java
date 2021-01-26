@@ -20,7 +20,7 @@ public class Estudiante {
         String[] datos = new String[4];
         datos = lineaDatos.split(SEPARADOR); 
         for (int i = 0; i < datos.length; i++){
-            datos[i].trim();
+            datos[i] = datos[i].trim();
         }
         apellidos = datos[1].toUpperCase();
         faltasNoJustificadas = Integer.parseInt(datos[2]);
@@ -111,19 +111,26 @@ public class Estudiante {
      * (ver enunciado)
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder(String.format("%-25s %-s", "Apellidos y Nombre:"
+        StringBuilder sb = new StringBuilder(String.format("%-25s %-25s \n", "Apellidos y Nombre:"
                 , this.apellidos + "," + this.nombre));
-        sb.append(String.format("%-25s %-d", "Faltas No Justificadas", faltasNoJustificadas));
-        sb.append(String.format("%-25s %-d", "Faltas Justificadas", faltasJustificadas));
-        sb.append(String.format("%-25s %-s", "Apercibimientos"));
+        sb.append(String.format("%-25s %-25d \n", "Faltas No Justificadas:", faltasNoJustificadas));
+        sb.append(String.format("%-25s %-25d \n", "Faltas Justificadas:", faltasJustificadas));
+        sb.append(String.format("%-25s ", "Apercibimientos:"));
+        if (faltasNoJustificadas < 10){
+            sb.append(String.format("%-25s", "Sin Apercibimientos"));
+        }
+        else if (faltasNoJustificadas >= 30){
+            sb.append(String.format("%-25s", TipoApercibimiento.DIEZ.toString() + " " 
+            + TipoApercibimiento.VEINTE.toString() + " " + TipoApercibimiento.TREINTA.toString()));
+        }
+        else if (faltasNoJustificadas >= 20){
+            sb.append(String.format("%-25s", TipoApercibimiento.DIEZ.toString() + " " 
+            + TipoApercibimiento.VEINTE.toString()));
+        }
+        else if (faltasNoJustificadas >= 10){
+            sb.append(String.format("%-25s", TipoApercibimiento.DIEZ.toString()));
+        }
         return sb.toString();
-
-    }
-
-    /**
-     * 
-     */
-    public void metodo() {
 
     }
 
