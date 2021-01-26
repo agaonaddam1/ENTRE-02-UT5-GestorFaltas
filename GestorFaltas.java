@@ -43,7 +43,7 @@ public class GestorFaltas {
         }
         else if(buscarEstudiante(nuevo.getApellidos()) >= 0){
             System.out.println("Ya está registrado el estudiante " + nuevo.getApellidos()
-            + "," + nuevo.getNombre() + " en el curso");
+                + "," + nuevo.getNombre() + " en el curso");
         }
         else{
             int i = total - 1;
@@ -107,7 +107,7 @@ public class GestorFaltas {
      *  justificar también)
      */
     public void justificarFaltas(String apellidos, int faltas) {
-
+        estudiantes[buscarEstudiante(apellidos)].justificar(faltas);
     }
 
     /**
@@ -116,6 +116,25 @@ public class GestorFaltas {
      * Método de selección directa
      */
     public void ordenar() {
+        for (int i = 0; i < total - 1; i++) {
+            int posmin = i;
+            for (int j = i + 1; j < total; j++) {
+                if(estudiantes[j].getFaltasNoJustificadas() 
+                < estudiantes[posmin].getFaltasNoJustificadas()){
+                    if (estudiantes[j].getFaltasJustificadas() 
+                    < estudiantes[posmin].getFaltasJustificadas()){
+                        posmin = j;
+                    }
+                }
+                else if (estudiantes[j].getFaltasNoJustificadas() 
+                < estudiantes[posmin].getFaltasNoJustificadas()) {
+                    posmin = j;
+                }
+            }
+            Estudiante aux = estudiantes[posmin];
+            estudiantes[posmin] = estudiantes[i];
+            estudiantes[i] = aux;
+        }
 
     }
 
@@ -124,7 +143,12 @@ public class GestorFaltas {
      * aquellos estudiantes con 30 o más faltas injustificadas
      */
     public void anularMatricula() {
-
+        for (int i = total; i >= 0; i++){
+            if (estudiantes[i].getFaltasNoJustificadas() >= 30){
+                System.arraycopy(estudiantes, i + 1, estudiantes, i, total - i - 1);
+                total--;
+            }
+        }
     }
 
     /**
