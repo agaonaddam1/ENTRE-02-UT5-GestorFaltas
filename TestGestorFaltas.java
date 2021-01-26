@@ -17,6 +17,16 @@ public class TestGestorFaltas {
             curso.leerDeFichero();
             System.out.println();
             System.out.println(curso.toString());
+            curso.justificarFaltas("IRISO FLAMARIQUE", 6);
+            System.out.println();
+            System.out.println("Ordenado de > a < nº de faltas");
+            System.out.println();
+            curso.ordenar();
+            System.out.println(curso.toString());
+            curso.anularMatricula();
+            System.out.println("Despues de anular matricula");
+            System.out.println();
+            System.out.println(curso.toString());
         }
     }
 

@@ -108,6 +108,9 @@ public class GestorFaltas {
      */
     public void justificarFaltas(String apellidos, int faltas) {
         estudiantes[buscarEstudiante(apellidos)].justificar(faltas);
+        System.out.println("Justificadas " + faltas + " faltas a " 
+        +  estudiantes[buscarEstudiante(apellidos)].getApellidos() + "," 
+        + estudiantes[buscarEstudiante(apellidos)].getNombre());
     }
 
     /**
@@ -120,14 +123,14 @@ public class GestorFaltas {
             int posmin = i;
             for (int j = i + 1; j < total; j++) {
                 if(estudiantes[j].getFaltasNoJustificadas() 
-                < estudiantes[posmin].getFaltasNoJustificadas()){
+                == estudiantes[posmin].getFaltasNoJustificadas()){
                     if (estudiantes[j].getFaltasJustificadas() 
-                    < estudiantes[posmin].getFaltasJustificadas()){
+                    > estudiantes[posmin].getFaltasJustificadas()){
                         posmin = j;
                     }
                 }
                 else if (estudiantes[j].getFaltasNoJustificadas() 
-                < estudiantes[posmin].getFaltasNoJustificadas()) {
+                > estudiantes[posmin].getFaltasNoJustificadas()) {
                     posmin = j;
                 }
             }
@@ -143,7 +146,7 @@ public class GestorFaltas {
      * aquellos estudiantes con 30 o más faltas injustificadas
      */
     public void anularMatricula() {
-        for (int i = total; i >= 0; i++){
+        for (int i = total - 1; i >= 0; i--){
             if (estudiantes[i].getFaltasNoJustificadas() >= 30){
                 System.arraycopy(estudiantes, i + 1, estudiantes, i, total - i - 1);
                 total--;
